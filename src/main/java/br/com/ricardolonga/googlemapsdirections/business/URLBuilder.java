@@ -5,24 +5,36 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import br.com.ricardolonga.googlemapsdirections.business.URLParameter.ParameterName;
 import br.com.ricardolonga.googlemapsdirections.exception.GoogleDirectionsException;
 
+/**
+ * Garante a construção da URL corretamente.
+ * 
+ * @author Ricardo Longa
+ */
 public class URLBuilder {
 	
 	public static final String UTF_8 = "UTF-8";
 
 	private StringBuilder baseUrl = new StringBuilder("http://maps.googleapis.com/maps/api/directions/json");
 	
-	private String from;
-	private String to;
+	private URLParameter from = new URLParameter(ParameterName.FROM, true);
+	private URLParameter waypoints = new URLParameter(ParameterName.WAYPOINTS, false);
+	private URLParameter to = new URLParameter(ParameterName.TO, true);
+	
 	private boolean sensor = false;
 
 	public void from(String from) {
-		this.from = from;
+		this.from.setValue(from);
+	}
+	
+	public void waypoint(String waypoint) {
+		this.waypoints.addValue(waypoint);
 	}
 	
 	public void to(String to) {
-		this.to = to;
+		this.to.setValue(to);
 	}
 	
 	public void sensor(boolean sensor) {
@@ -40,13 +52,25 @@ public class URLBuilder {
 	}
 
 	private void createUrl() throws GoogleDirectionsException {
+		validate();
+		
 		try {
-			baseUrl.append("?origin=").append(URLEncoder.encode(from, UTF_8));
-			baseUrl.append("&destination=").append(URLEncoder.encode(to, UTF_8));
+			baseUrl.append("?origin=").append(URLEncoder.encode(from.getValue(), UTF_8));
+			if (waypoints.containsValue()) {
+				baseUrl.append("&waypoints=").append(URLEncoder.encode(waypoints.getValue(), UTF_8));
+			}
+			baseUrl.append("&destination=").append(URLEncoder.encode(to.getValue(), UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			throw new GoogleDirectionsException(e);
 		}
 
 		baseUrl.append("&sensor=").append(sensor);
 	}
+
+	private void validate() throws GoogleDirectionsException {
+		this.from.validate();
+		this.waypoints.validate();
+		this.to.validate();
+	}
+
 }

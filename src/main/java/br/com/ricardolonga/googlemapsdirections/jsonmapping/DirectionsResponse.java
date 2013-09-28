@@ -22,6 +22,8 @@ public class DirectionsResponse {
      * enviado o parâmetro alternatives:true.
      */
     private List<Route> routes;
+    
+    private String url;
 
     public Status getStatus() {
         return this.status;
@@ -39,4 +41,12 @@ public class DirectionsResponse {
         this.routes = routes;
     }
 
+    public void setUrl(String url) {
+		this.url = url;
+	}
+    
+    public String getUrl() {
+		return url;
+	}
+    
 }
