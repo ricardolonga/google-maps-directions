@@ -1,8 +1,5 @@
 package br.com.ricardolonga.googledirections.tests;
 
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -16,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.com.ricardolonga.googledirections.helpers.AddressesHelper;
-import br.com.ricardolonga.googledirections.helpers.ProxyHelper;
 import br.com.ricardolonga.googlemapsdirections.business.DirectionsSearch;
 import br.com.ricardolonga.googlemapsdirections.exception.GoogleDirectionsException;
 import br.com.ricardolonga.googlemapsdirections.jsonmapping.DirectionsResponse;
@@ -36,19 +32,19 @@ public class HowToUseTest {
     @Inject
     DirectionsSearch directionsSearch;
 
-//    @Before
-//    public void init() {
-//        Authenticator authenticator = new Authenticator() {
-//            @Override
-//            public PasswordAuthentication getPasswordAuthentication() {
-//                return (new PasswordAuthentication(ProxyHelper.USER, ProxyHelper.PASS.toCharArray()));
-//            }
-//        };
-//        Authenticator.setDefault(authenticator);
-//
-//        System.setProperty("http.proxyHost", ProxyHelper.PROXY_HOST);
-//        System.setProperty("http.proxyPort", ProxyHelper.PROXY_PORT);
-//    }
+    @Before
+    public void init() {
+        // Authenticator authenticator = new Authenticator() {
+        // @Override
+        // public PasswordAuthentication getPasswordAuthentication() {
+        // return (new PasswordAuthentication(ProxyHelper.USER, ProxyHelper.PASS.toCharArray()));
+        // }
+        // };
+        // Authenticator.setDefault(authenticator);
+        //
+        // System.setProperty("http.proxyHost", ProxyHelper.PROXY_HOST);
+        // System.setProperty("http.proxyPort", ProxyHelper.PROXY_PORT);
+    }
 
     @Test
     public void the_answer_should_be_ok() throws GoogleDirectionsException {
