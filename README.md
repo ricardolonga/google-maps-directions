@@ -45,5 +45,11 @@ public void example() {
                                                   .to(PALHOCA)
                                                   .go();
 }
-
 ```
+
+## Autor
+
+**Nome**: Ricardo Longa  
+**Twitter**: @ricardolonga  
+**E-mail**: [ricardo.longa@gmail.com](mailto://ricardo.longa@gmail.com)  
+**Site**: [www.ricardolonga.com.br](http://www.ricardolonga.com.br "Site")  
