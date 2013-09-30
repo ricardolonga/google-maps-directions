@@ -44,5 +44,6 @@ public void example() {
                                                   .waypoint(SAO_JOSE)
                                                   .to(PALHOCA)
                                                   .go();
+}
 
 ```
