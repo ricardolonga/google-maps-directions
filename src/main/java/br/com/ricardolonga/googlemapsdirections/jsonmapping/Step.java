@@ -1,37 +1,41 @@
 package br.com.ricardolonga.googlemapsdirections.jsonmapping;
 
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Uma etapa é a unidade mais atômica do trajeto de uma rota, contendo uma única etapa que descreve uma única 
- * instrução específica do caminho. Por exemplo, "Virar à esquerda em W. 4th St". 
+ * Uma etapa é a unidade mais atômica do trajeto de uma rota, contendo uma única etapa que descreve uma única instrução
+ * específica do caminho. Por exemplo, "Virar à esquerda em W. 4th St".
  * 
  * @author Ricardo Longa
  */
 public class Step {
 
-	/**
-	 * Contém instruções formatadas.
-	 */
-	private String htmlInstructions;
+    /**
+     * Contém instruções formatadas.
+     */
+    @SerializedName("html_instructions")
+    private String htmlInstructions;
 
-	/**
-	 * Contém a distância abrangida por essa etapa até a próxima etapa.
-	 */
-	private Distance distance;
-	
-	/**
-	 * Contém o tempo típico necessário para realizar a etapa.
-	 */
+    /**
+     * Contém a distância abrangida por essa etapa até a próxima etapa.
+     */
+    private Distance distance;
+
+    /**
+     * Contém o tempo típico necessário para realizar a etapa.
+     */
     private Duration duration;
 
     /**
      * Contém o local do ponto inicial dessa etapa.
      */
+    @SerializedName("start_location")
     private Point startLocation;
-    
+
     /**
      * Contém o local do ponto final dessa etapa.
      */
+    @SerializedName("end_location")
     private Point endLocation;
 
     private Polyline polyline;
@@ -39,6 +43,7 @@ public class Step {
     /**
      * Driving (default), Walking, Bicycling, Transit (transporte público).
      */
+    @SerializedName("travel_mode")
     private TravelMode travelMode;
 
     public Distance getDistance() {
