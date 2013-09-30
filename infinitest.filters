@@ -1,18 +1,18 @@
-######################################
-# Bloqueia todos os testes do pacote #
-######################################
+####################################
+# Ignora todos os testes do pacote #
+####################################
 # br\.com\.ricardolonga\.googlemapsdirections\.tests\..*
 
-#######################################
-# Bloqueia todos os testes do projeto #
-#######################################
+#####################################
+# Ignora todos os testes do projeto #
+#####################################
 # .*
 
-##############################
-# Bloqueia as classes abaixo #
-##############################
+############################
+# Ignora as classes abaixo #
+############################
 # .*HowToUseTest
 # .*RouteTest
 # .*BoundsTest
 # .*LegTest
-.*StepTest
+# .*StepTest
