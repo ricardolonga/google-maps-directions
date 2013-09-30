@@ -40,7 +40,7 @@
         
         <!-- Plugins Maven -->
         <version.maven-compiler-plugin>2.3.2</version.maven-compiler-plugin>
-        <version.maven-surefire-plugin>2.12</version.maven-surefire-plugin>
+        <version.maven-surefire-plugin>2.16</version.maven-surefire-plugin>
         <version.maven-jar-plugin>2.4</version.maven-jar-plugin>
     </properties>
 
@@ -133,10 +133,10 @@
                 </configuration>
             </plugin>
             
-<!--             <plugin> -->
-<!-- 			    <artifactId>maven-surefire-plugin</artifactId> -->
-<!-- 			    <version>${version.maven-surefire-plugin}</version> -->
-<!-- 			</plugin> -->
+            <plugin>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <version>${version.maven-surefire-plugin}</version>
+			</plugin>
             
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
