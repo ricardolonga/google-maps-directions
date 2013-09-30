@@ -133,10 +133,10 @@
                 </configuration>
             </plugin>
             
-            <plugin>
-			    <artifactId>maven-surefire-plugin</artifactId>
-			    <version>${version.maven-surefire-plugin}</version>
-			</plugin>
+<!--             <plugin> -->
+<!-- 			    <artifactId>maven-surefire-plugin</artifactId> -->
+<!-- 			    <version>${version.maven-surefire-plugin}</version> -->
+<!-- 			</plugin> -->
             
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
