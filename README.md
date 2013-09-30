@@ -1,4 +1,4 @@
-# Google-Maps-Directions  
+﻿# Google-Maps-Directions  
 
 Uma biblioteca open-source para a [**Google Directions API**](https://developers.google.com/maps/documentation/directions/).
 
@@ -20,4 +20,29 @@ public void example() {
                             				      .to(PALHOCA)
                             				      .go();
 }
+```
+
+## Utilizando proxy
+
+```
+@Inject
+private DirectionsSearch directionsSearh;
+
+public void example() {
+    Authenticator authenticator = new Authenticator() {
+        @Override
+        public PasswordAuthentication getPasswordAuthentication() {
+            return (new PasswordAuthentication("your_proxy_user", "your_proxy_pass".toCharArray()));
+        }
+    };
+    Authenticator.setDefault(authenticator);
+
+    System.setProperty("http.proxyHost", "your_proxy_host");
+    System.setProperty("http.proxyPort", "your_proxy_port");
+
+    DirectionsResponse response = directionsSearch.from(FLORIANOPOLIS)
+                                                  .waypoint(SAO_JOSE)
+                                                  .to(PALHOCA)
+                                                  .go();
+
 ```
