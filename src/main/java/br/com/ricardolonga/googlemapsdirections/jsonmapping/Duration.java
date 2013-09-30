@@ -8,8 +8,8 @@ public class Duration {
     /**
      * Valor expressado sempre em segundos.
      */
-    private Number value;
-    
+    private Integer value;
+
     /**
      * Contém uma representação legível da duração.
      */
@@ -23,11 +23,11 @@ public class Duration {
         this.text = text;
     }
 
-    public Number getValue() {
+    public Integer getValue() {
         return this.value;
     }
 
-    public void setValue(Number value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 }

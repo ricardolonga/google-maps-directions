@@ -2,6 +2,8 @@ package br.com.ricardolonga.googlemapsdirections.jsonmapping;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author Ricardo Longa
  */
@@ -29,6 +31,7 @@ public class Route {
      * Contém um objeto que possui uma matriz de points codificado que representa um caminho aproximado (suavizado) das
      * rotas resultantes.
      */
+    @SerializedName("overview_polyline")
     private OverviewPolyline overviewPolyline;
 
     /**

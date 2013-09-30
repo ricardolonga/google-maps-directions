@@ -2,6 +2,8 @@ package br.com.ricardolonga.googlemapsdirections.jsonmapping;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Corresponde ao trecho até um ponto de referência ou ponto final.
  * 
@@ -9,39 +11,43 @@ import java.util.List;
  */
 public class Leg {
 
-	/**
-	 *  Informações sobre cada etapa (Step) separada do trecho (Leg).
-	 */
-	private List<Step> steps;
+    /**
+     * Informações sobre cada etapa (Step) separada do trecho (Leg).
+     */
+    private List<Step> steps;
 
-	/**
-	 * Indica a distância total abrangida por esse trecho.
-	 */
-	private Distance distance;
+    /**
+     * Indica a distância total abrangida por esse trecho.
+     */
+    private Distance distance;
 
-	/**
-	 * Indica a duração total desse trecho.
-	 */
-	private Duration duration;
+    /**
+     * Indica a duração total desse trecho.
+     */
+    private Duration duration;
 
-	/**
-	 * Contém as coordenadas de latitude/longitude da origem desse trecho. 
-	 */
-	private Point startLocation;
-	
-	/**
-	 * Contém as coordenadas de latitude/longitude do destino fornecido desse trecho. 
-	 */
+    /**
+     * Contém as coordenadas de latitude/longitude da origem desse trecho.
+     */
+    @SerializedName("start_location")
+    private Point startLocation;
+
+    /**
+     * Contém as coordenadas de latitude/longitude do destino fornecido desse trecho.
+     */
+    @SerializedName("end_location")
     private Point endLocation;
 
     /**
      * Contém o endereço legível (geralmente o endereço de uma rua) que reflete o start_location desse trecho.
      */
+    @SerializedName("start_address")
     private String startAddress;
-    
+
     /**
      * Contém o endereço legível (geralmente o endereço de uma rua) que reflete o end_location desse trecho.
      */
+    @SerializedName("end_address")
     private String endAddress;
 
     private List<ViaWaypoint> viaWaypoint;
@@ -62,7 +68,7 @@ public class Leg {
         this.duration = duration;
     }
 
-    public String getEnd_address() {
+    public String getEndAddress() {
         return this.endAddress;
     }
 
@@ -106,7 +112,7 @@ public class Leg {
         return this.viaWaypoint;
     }
 
-    public void setVia_waypoint(List<ViaWaypoint> viaWaypoint) {
+    public void setViaWaypoint(List<ViaWaypoint> viaWaypoint) {
         this.viaWaypoint = viaWaypoint;
     }
 }

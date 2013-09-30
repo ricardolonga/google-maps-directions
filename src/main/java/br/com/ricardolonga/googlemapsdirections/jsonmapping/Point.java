@@ -1,14 +1,19 @@
 package br.com.ricardolonga.googlemapsdirections.jsonmapping;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author Ricardo Longa
  */
 public class Point {
 
+    @SerializedName("lat")
     private Double latitude;
+
+    @SerializedName("lng")
     private Double longitude;
 
-    public Number getLatitude() {
+    public Double getLatitude() {
         return this.latitude;
     }
 

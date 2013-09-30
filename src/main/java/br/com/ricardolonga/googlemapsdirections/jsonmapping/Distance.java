@@ -1,15 +1,15 @@
 package br.com.ricardolonga.googlemapsdirections.jsonmapping;
 
 public class Distance {
-	
-	/**
-	 * Valor expressado sempre em metros.
-	 */
-	private Number value;
 
-	/**
-	 * Contém uma representação legível da distância.
-	 */
+    /**
+     * Valor expressado sempre em metros.
+     */
+    private Integer value;
+
+    /**
+     * Contém uma representação legível da distância.
+     */
     private String text;
 
     public String getText() {
@@ -20,11 +20,11 @@ public class Distance {
         this.text = text;
     }
 
-    public Number getValue() {
+    public Integer getValue() {
         return this.value;
     }
 
-    public void setValue(Number value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 }
