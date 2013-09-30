@@ -3,6 +3,7 @@ package br.com.ricardolonga.googlemapsdirections.business;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
@@ -30,6 +31,20 @@ public class DirectionsSearch {
 
     public DirectionsSearch waypoint(String waypoint) {
         urlBuilder.waypoint(waypoint);
+        return this;
+    }
+
+    /**
+     * Example: "Florianópolis/SC" or "-27.5969039,-48.54945439999999" (lat, lon).
+     * 
+     * @param waypoints
+     * @return
+     */
+    public DirectionsSearch waypoints(List<String> waypoints) {
+        for (String waypoint : waypoints) {
+            waypoint(waypoint);
+        }
+
         return this;
     }
 
