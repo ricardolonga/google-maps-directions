@@ -51,23 +51,24 @@ public class RouteTest {
 
     @Test
     public void should_have_one_route() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.ARARANGUA).go();
-        Assert.assertEquals(1, response.getRoutes().size());
+        // DirectionsResponse response =
+        // directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.ARARANGUA).go();
+        // Assert.assertEquals(1, response.getRoutes().size());
     }
 
-    @Test
+    // @Test
     public void should_have_more_than_one_route() throws GoogleDirectionsException {
         DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).withAlternativesRoutes().go();
         Assert.assertTrue(response.getRoutes().size() > 1);
     }
 
-    @Test
+    // @Test
     public void should_have_copyrights() throws GoogleDirectionsException {
         DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
         Assert.assertTrue(response.getRoutes().get(0).getCopyrights() != null && !"".equalsIgnoreCase(response.getRoutes().get(0).getCopyrights()));
     }
 
-    @Test
+    // @Test
     public void should_have_summary() throws GoogleDirectionsException {
         DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
         Assert.assertTrue(response.getRoutes().get(0).getSummary() != null && !"".equalsIgnoreCase(response.getRoutes().get(0).getSummary()));
