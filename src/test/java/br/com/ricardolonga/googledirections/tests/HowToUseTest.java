@@ -1,5 +1,8 @@
 package br.com.ricardolonga.googledirections.tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -90,6 +93,17 @@ public class HowToUseTest {
 
         response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
         Assert.assertEquals(1, response.getRoutes().size());
+    }
+
+    @Test
+    public void with_multi_waypoints() throws GoogleDirectionsException {
+        List<String> waypoints = new ArrayList<String>();
+
+        waypoints.add(AddressesHelper.SAO_JOSE);
+        waypoints.add(AddressesHelper.PALHOCA);
+
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoints(waypoints).to(AddressesHelper.ARARANGUA).go();
+        Assert.assertTrue(response.getStatus().equals(Status.OK));
     }
 
 }

@@ -34,21 +34,21 @@ public class StepTest {
 
     @Before
     public void init() {
-//        Authenticator authenticator = new Authenticator() {
-//            @Override
-//            public PasswordAuthentication getPasswordAuthentication() {
-//                return (new PasswordAuthentication(ProxyHelper.USER, ProxyHelper.PASS.toCharArray()));
-//            }
-//        };
-//        Authenticator.setDefault(authenticator);
-//
-//        System.setProperty("http.proxyHost", ProxyHelper.PROXY_HOST);
-//        System.setProperty("http.proxyPort", ProxyHelper.PROXY_PORT);
+        // Authenticator authenticator = new Authenticator() {
+        // @Override
+        // public PasswordAuthentication getPasswordAuthentication() {
+        // return (new PasswordAuthentication(ProxyHelper.USER, ProxyHelper.PASS.toCharArray()));
+        // }
+        // };
+        // Authenticator.setDefault(authenticator);
+        //
+        // System.setProperty("http.proxyHost", ProxyHelper.PROXY_HOST);
+        // System.setProperty("http.proxyPort", ProxyHelper.PROXY_PORT);
     }
 
-    // ============================= //
-    // Validating route informations //
-    // ============================= //
+    // ============================ //
+    // Validating step informations //
+    // ============================ //
 
     @Test
     public void the_leg_should_have_more_than_one_step() throws GoogleDirectionsException {
