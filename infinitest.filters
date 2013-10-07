@@ -1,18 +1,19 @@
 ####################################
 # Ignora todos os testes do pacote #
 ####################################
-# br\.com\.ricardolonga\.googlemapsdirections\.tests\..*
+#br\.com\.ricardolonga\.googlemapsdirections\.tests\..*
 
 #####################################
 # Ignora todos os testes do projeto #
 #####################################
-.*
+#.*
 
 ############################
 # Ignora as classes abaixo #
 ############################
-# .*HowToUseTest
-# .*RouteTest
-# .*BoundsTest
-# .*LegTest
-# .*StepTest
+#.*HowToUseTest
+#.*RouteTest
+#.*BoundsTest
+#.*LegTest
+#.*StepTest
+#.*LocaleTest

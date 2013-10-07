@@ -10,11 +10,12 @@ public class URLParameter {
     public enum ParameterName {
         FROM,
         WAYPOINTS,
-        TO
+        TO,
+        LANGUAGE
     }
 
     private ParameterName name;
-    private String value;
+    private String value = "";
     private boolean required;
 
     public URLParameter(ParameterName name, boolean required) {
@@ -22,17 +23,31 @@ public class URLParameter {
         this.required = required;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public URLParameter(ParameterName name, boolean required, String defaultValue) {
+        this.name = name;
+        this.required = required;
+        this.value = defaultValue;
     }
 
-    public void addValue(String waypoint) {
-        if (value == null || "".equalsIgnoreCase(value)) {
-            value = waypoint;
+    public void setValue(String value) {
+        if (value == null) {
             return;
         }
 
-        value += "|" + waypoint;
+        this.value = value;
+    }
+
+    public void addValue(String value) {
+        if (value == null) {
+            return;
+        }
+
+        if (this.value == null || this.value.isEmpty()) {
+            this.value = value;
+            return;
+        }
+
+        this.value += "|" + value;
     }
 
     public String getValue() {
@@ -40,7 +55,7 @@ public class URLParameter {
     }
 
     public boolean containsValue() {
-        return value != null && !"".equalsIgnoreCase(value);
+        return value != null && !value.isEmpty();
     }
 
     public void validate() throws GoogleDirectionsException {
@@ -48,7 +63,7 @@ public class URLParameter {
             return;
         }
 
-        if (value == null || "".equalsIgnoreCase(value)) {
+        if (value == null || value.isEmpty()) {
             throw new GoogleDirectionsException("The parameter " + name + " can't be null or empty.");
         }
     }

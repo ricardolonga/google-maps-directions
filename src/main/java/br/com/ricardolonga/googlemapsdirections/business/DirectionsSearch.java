@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.io.IOUtils;
 
@@ -55,6 +56,16 @@ public class DirectionsSearch {
 
     public DirectionsSearch withAlternativesRoutes() {
         urlBuilder.withAlternativesRoutes();
+        return this;
+    }
+
+    /**
+     * Default is "pt-BR".
+     * 
+     * @param locale
+     */
+    public DirectionsSearch withLocale(Locale locale) {
+        urlBuilder.withLocale(locale);
         return this;
     }
 
