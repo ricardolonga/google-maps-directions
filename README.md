@@ -18,7 +18,7 @@ public void example() {
     DirectionsResponse response = directionsSearch.create()
                                                   .from(FLORIANOPOLIS)
                                                   .waypoint(SAO_JOSE)
-                            				      .to(PALHOCA)
+                                			      .to(PALHOCA)
                             				      .go();
 }
 ```
@@ -46,6 +46,37 @@ public void example() {
                                                   .waypoint(SAO_JOSE)
                                                   .to(PALHOCA)
                                                   .go();
+}
+```
+
+## Definindo locale (default = pt-br)
+
+```
+@Inject
+private DirectionsSearch directionsSearh;
+
+public void example() {
+    DirectionsResponse response = directionsSearch.create()
+                                                  .from(FLORIANOPOLIS)
+                            				      .to(PALHOCA)
+                                                  .withLocale(Locale.CANADA_FRENCH) // "fr-CA"
+                            				      .go();
+}
+```
+
+
+## Com rotas alternativas
+
+```
+@Inject
+private DirectionsSearch directionsSearh;
+
+public void example() {
+    DirectionsResponse response = directionsSearch.create()
+                                                  .from(FLORIANOPOLIS)
+                                			      .to(PALHOCA)
+                                                  .withAlternatives()
+                            				      .go();
 }
 ```
 
