@@ -72,14 +72,14 @@ public class LegTest {
     public void distance_should_be_436_km() throws GoogleDirectionsException {
         DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
         Assert.assertNotNull(response.getRoutes().get(0).getLegs().get(0).getDistance().getText());
-        Assert.assertEquals(Integer.valueOf(436240), response.getRoutes().get(0).getLegs().get(0).getDistance().getValue());
+        Assert.assertEquals(Integer.valueOf(465582), response.getRoutes().get(0).getLegs().get(0).getDistance().getValue());
     }
 
     // @Test
     public void duration_should_be_5_hours_24_minutes() throws GoogleDirectionsException {
         DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
         Assert.assertNotNull(response.getRoutes().get(0).getLegs().get(0).getDuration().getText());
-        Assert.assertEquals(Integer.valueOf(19432), response.getRoutes().get(0).getLegs().get(0).getDuration().getValue());
+        Assert.assertEquals(Integer.valueOf(19463), response.getRoutes().get(0).getLegs().get(0).getDuration().getValue());
     }
 
     // @Test
