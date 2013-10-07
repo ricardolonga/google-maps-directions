@@ -15,7 +15,8 @@ Um servidor de aplicações Java EE 6 em virtude da utilização de CDI (prefere
 private DirectionsSearch directionsSearh;
 
 public void example() {
-    DirectionsResponse response = directionsSearch.from(FLORIANOPOLIS)
+    DirectionsResponse response = directionsSearch.create()
+                                                  .from(FLORIANOPOLIS)
                                                   .waypoint(SAO_JOSE)
                             				      .to(PALHOCA)
                             				      .go();
@@ -40,7 +41,8 @@ public void example() {
     System.setProperty("http.proxyHost", "your_proxy_host");
     System.setProperty("http.proxyPort", "your_proxy_port");
 
-    DirectionsResponse response = directionsSearch.from(FLORIANOPOLIS)
+    DirectionsResponse response = directionsSearch.create()
+                                                  .from(FLORIANOPOLIS)
                                                   .waypoint(SAO_JOSE)
                                                   .to(PALHOCA)
                                                   .go();
