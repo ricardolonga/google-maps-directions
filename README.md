@@ -30,21 +30,11 @@ public void example() {
 private DirectionsSearch directionsSearh;
 
 public void example() {
-    Authenticator authenticator = new Authenticator() {
-        @Override
-        public PasswordAuthentication getPasswordAuthentication() {
-            return (new PasswordAuthentication("your_proxy_user", "your_proxy_pass".toCharArray()));
-        }
-    };
-    Authenticator.setDefault(authenticator);
-
-    System.setProperty("http.proxyHost", "your_proxy_host");
-    System.setProperty("http.proxyPort", "your_proxy_port");
-
     DirectionsResponse response = directionsSearch.create()
                                                   .from(FLORIANOPOLIS)
                                                   .waypoint(SAO_JOSE)
                                                   .to(PALHOCA)
+                                                  .withProxy("your_proxy_host", "your_proxy_port", "your_proxy_user", "your_proxy_pass)
                                                   .go();
 }
 ```
