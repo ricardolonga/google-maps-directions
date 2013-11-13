@@ -34,7 +34,7 @@ public void example() {
                                                   .from(FLORIANOPOLIS)
                                                   .waypoint(SAO_JOSE)
                                                   .to(PALHOCA)
-                                                  .withProxy("your_proxy_host", "your_proxy_port", "your_proxy_user", "your_proxy_pass)
+                                                  .withProxy("your_proxy_host", "your_proxy_port", "your_proxy_user", "your_proxy_pass")
                                                   .go();
 }
 ```
