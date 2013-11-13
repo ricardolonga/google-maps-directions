@@ -1,7 +1,9 @@
 package br.com.ricardolonga.googlemapsdirections.business;
 
 import java.io.IOException;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +58,22 @@ public class DirectionsSearch {
 
     public DirectionsSearch withAlternativesRoutes() {
         urlBuilder.withAlternativesRoutes();
+        return this;
+    }
+
+    public DirectionsSearch withProxy(String host, String port, final String username, final String password) {
+        Authenticator authenticator = new Authenticator() {
+            @Override
+            public PasswordAuthentication getPasswordAuthentication() {
+                return (new PasswordAuthentication(username, password.toCharArray()));
+            }
+        };
+
+        Authenticator.setDefault(authenticator);
+
+        System.setProperty("http.proxyHost", host);
+        System.setProperty("http.proxyPort", port);
+
         return this;
     }
 
