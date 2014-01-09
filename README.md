@@ -69,7 +69,7 @@ public void example() {
 }
 ```
 
-## Informando Google ClientID
+## Consultando rotas como cliente Premier
 
 ```
 @Inject
@@ -79,7 +79,7 @@ public void example() {
     DirectionsResponse response = directionsSearch.create()
                                                   .from(FLORIANOPOLIS)
                                 			      .to(PALHOCA)
-                                                  .withClientId("your_google_client_id")
+                                                  .asPremierClient("your_client_id", "your_cryptographic_key")
                             				      .go();
 }
 ```
