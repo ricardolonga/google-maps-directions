@@ -27,6 +27,12 @@ public class DirectionsSearch {
         return this;
     }
 
+    /**
+     * Add origin (required).
+     * 
+     * @param from
+     * @return
+     */
     public DirectionsSearch from(String from) {
         urlBuilder.from(from);
         return this;
@@ -51,6 +57,12 @@ public class DirectionsSearch {
         return this;
     }
 
+    /**
+     * Add destination (required).
+     * 
+     * @param to
+     * @return
+     */
     public DirectionsSearch to(String to) {
         urlBuilder.to(to);
         return this;
@@ -61,7 +73,7 @@ public class DirectionsSearch {
         return this;
     }
 
-    public DirectionsSearch withProxy(String host, String port, final String username, final String password) {
+    public DirectionsSearch withProxy(final String username, final String password) {
         Authenticator authenticator = new Authenticator() {
             @Override
             public PasswordAuthentication getPasswordAuthentication() {
@@ -71,19 +83,31 @@ public class DirectionsSearch {
 
         Authenticator.setDefault(authenticator);
 
-        System.setProperty("http.proxyHost", host);
-        System.setProperty("http.proxyPort", port);
-
         return this;
     }
 
-    public DirectionsSearch withClientId(String clientId) {
-        urlBuilder.withClientId(clientId);
+    public DirectionsSearch withProxy(String host, String port, final String username, final String password) {
+        System.setProperty("http.proxyHost", host);
+        System.setProperty("http.proxyPort", port);
+
+        return withProxy(username, password);
+    }
+
+    /**
+     * For Google Premier client.
+     * 
+     * @param clientId
+     * @param cryptographicKey
+     * @return
+     */
+    public DirectionsSearch asPremierClient(String clientId, String cryptographicKey) {
+        urlBuilder.clientId(clientId);
+        urlBuilder.cyptographicKey(cryptographicKey);
         return this;
     }
 
     /**
-     * Default is "pt-BR".
+     * Example: "pt", "en", "fr", ... (Default is "pt-BR")
      * 
      * @param locale
      */
@@ -97,8 +121,14 @@ public class DirectionsSearch {
         return this;
     }
 
+    /**
+     * Prepare and execute the URL.
+     * 
+     * @return
+     * @throws GoogleDirectionsException
+     */
     public DirectionsResponse go() throws GoogleDirectionsException {
-        URL url = urlBuilder.getUrl();
+        URL url = urlBuilder.build();
 
         String content = request(url);
 
@@ -108,13 +138,6 @@ public class DirectionsSearch {
         return response;
     }
 
-    /**
-     * Executa a URL e retorna a resposta Json.
-     * 
-     * @param url
-     * @return
-     * @throws GoogleDirectionsException
-     */
     private String request(URL url) throws GoogleDirectionsException {
         String content = "";
 

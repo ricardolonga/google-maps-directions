@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 import br.com.ricardolonga.googlemapsdirections.business.URLParameter.ParameterName;
@@ -25,6 +27,7 @@ public class URLBuilder {
     private URLParameter to = new URLParameter(ParameterName.TO, true);
     private URLParameter locale = new URLParameter(ParameterName.LANGUAGE, true, DEFAULT_LOCALE);
     private URLParameter clientId = new URLParameter(ParameterName.CLIENT_ID, false);
+    private URLParameter cryptographicKey = new URLParameter(ParameterName.CRYPTOGRAPHIC_KEY, false);
 
     private boolean sensor = false;
     private boolean alternativesRoutes = false;
@@ -65,22 +68,58 @@ public class URLBuilder {
         this.locale.setValue(language.toString());
     }
 
-    public void withClientId(String clientId) {
+    public void clientId(String clientId) {
         this.clientId.setValue(clientId);
+    }
+
+    public void cyptographicKey(String cryptographicKey) {
+        this.cryptographicKey.setValue(cryptographicKey);
     }
 
     public void sensor(boolean sensor) {
         this.sensor = sensor;
     }
 
-    public URL getUrl() throws GoogleDirectionsException {
-        createUrl();
+    public URL build() throws GoogleDirectionsException {
+        validateUrlParams();
+
+        concatUrlParams();
+
+        URL url = null;
 
         try {
-            return new URL(baseUrl.toString());
-        } catch (MalformedURLException e) {
+            url = new URL(baseUrl.toString());
+
+            if (asPremierClient()) {
+                url = signUrl(url);
+            }
+        } catch (MalformedURLException | InvalidKeyException | NoSuchAlgorithmException e) {
             throw new GoogleDirectionsException("Error creating the url query.", e);
         }
+
+        return url;
+    }
+
+    /**
+     * To sign URL are necessary clientId and cryptographicKey.
+     * 
+     * @return
+     */
+    private boolean asPremierClient() {
+        return cryptographicKey.containsValue() && clientId.containsValue();
+    }
+
+    /**
+     * Sign the URL as (https://developers.google.com/maps/documentation/business/webservices/auth)
+     * 
+     * @param url
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeyException
+     * @throws MalformedURLException
+     */
+    private URL signUrl(URL url) throws NoSuchAlgorithmException, InvalidKeyException, MalformedURLException {
+        return new UrlSigner(cryptographicKey.getValue()).sign(url);
     }
 
     public static final String UTF_8 = "UTF-8";
@@ -93,9 +132,7 @@ public class URLBuilder {
     private static final String ALTERNATIVES = "&alternatives=";
     private static final String CLIENT_ID = "&client=";
 
-    private void createUrl() throws GoogleDirectionsException {
-        validate();
-
+    private void concatUrlParams() throws GoogleDirectionsException {
         try {
             baseUrl.append(ORIGIN).append(URLEncoder.encode(from.getValue(), UTF_8));
 
@@ -117,7 +154,7 @@ public class URLBuilder {
         baseUrl.append(ALTERNATIVES).append(alternativesRoutes);
     }
 
-    private void validate() throws GoogleDirectionsException {
+    private void validateUrlParams() throws GoogleDirectionsException {
         this.from.validate();
         this.waypoints.validate();
         this.to.validate();

@@ -12,6 +12,7 @@ public class URLParameter {
         WAYPOINTS,
         TO,
         CLIENT_ID,
+        CRYPTOGRAPHIC_KEY,
         LANGUAGE
     }
 
