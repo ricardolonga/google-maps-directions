@@ -54,7 +54,6 @@ public void example() {
 }
 ```
 
-
 ## Com rotas alternativas
 
 ```
@@ -66,6 +65,21 @@ public void example() {
                                                   .from(FLORIANOPOLIS)
                                 			      .to(PALHOCA)
                                                   .withAlternatives()
+                            				      .go();
+}
+```
+
+## Informando Google ClientID
+
+```
+@Inject
+private DirectionsSearch directionsSearh;
+
+public void example() {
+    DirectionsResponse response = directionsSearch.create()
+                                                  .from(FLORIANOPOLIS)
+                                			      .to(PALHOCA)
+                                                  .withClientId("your_google_client_id")
                             				      .go();
 }
 ```
