@@ -7,4 +7,6 @@ public class ProxyHelper {
     public static final String USER = "your_proxy_user";
     public static final String PASS = "your_proxy_pass";
 
+    public static final String GOOGLE_CLIENT_ID = "your_google_client_id";
+
 }

@@ -24,6 +24,7 @@ public class URLBuilder {
     private URLParameter waypoints = new URLParameter(ParameterName.WAYPOINTS, false);
     private URLParameter to = new URLParameter(ParameterName.TO, true);
     private URLParameter locale = new URLParameter(ParameterName.LANGUAGE, true, DEFAULT_LOCALE);
+    private URLParameter clientId = new URLParameter(ParameterName.CLIENT_ID, false);
 
     private boolean sensor = false;
     private boolean alternativesRoutes = false;
@@ -64,6 +65,10 @@ public class URLBuilder {
         this.locale.setValue(language.toString());
     }
 
+    public void withClientId(String clientId) {
+        this.clientId.setValue(clientId);
+    }
+
     public void sensor(boolean sensor) {
         this.sensor = sensor;
     }
@@ -86,6 +91,7 @@ public class URLBuilder {
     private static final String LANGUAGE = "&language=";
     private static final String SENSOR = "&sensor=";
     private static final String ALTERNATIVES = "&alternatives=";
+    private static final String CLIENT_ID = "&client=";
 
     private void createUrl() throws GoogleDirectionsException {
         validate();
@@ -99,6 +105,10 @@ public class URLBuilder {
 
             baseUrl.append(DESTINATION).append(URLEncoder.encode(to.getValue(), UTF_8));
             baseUrl.append(LANGUAGE).append(URLEncoder.encode(locale.getValue(), UTF_8));
+
+            if (clientId.containsValue()) {
+                baseUrl.append(CLIENT_ID).append(URLEncoder.encode(clientId.getValue(), UTF_8));
+            }
         } catch (UnsupportedEncodingException e) {
             throw new GoogleDirectionsException(e);
         }
@@ -111,6 +121,8 @@ public class URLBuilder {
         this.from.validate();
         this.waypoints.validate();
         this.to.validate();
+        this.locale.validate();
+        this.clientId.validate();
     }
 
 }

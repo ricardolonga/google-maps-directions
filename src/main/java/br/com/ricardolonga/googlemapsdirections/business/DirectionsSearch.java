@@ -77,6 +77,11 @@ public class DirectionsSearch {
         return this;
     }
 
+    public DirectionsSearch withClientId(String clientId) {
+        urlBuilder.withClientId(clientId);
+        return this;
+    }
+
     /**
      * Default is "pt-BR".
      * 

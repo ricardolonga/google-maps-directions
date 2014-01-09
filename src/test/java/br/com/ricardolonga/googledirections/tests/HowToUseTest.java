@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.com.ricardolonga.googledirections.helpers.AddressesHelper;
+import br.com.ricardolonga.googledirections.helpers.ProxyHelper;
 import br.com.ricardolonga.googlemapsdirections.business.DirectionsSearch;
 import br.com.ricardolonga.googlemapsdirections.exception.GoogleDirectionsException;
 import br.com.ricardolonga.googlemapsdirections.jsonmapping.DirectionsResponse;
@@ -29,7 +30,8 @@ public class HowToUseTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "br.com.ricardolonga.googlemapsdirections").addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "br.com.ricardolonga.googlemapsdirections")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Inject
@@ -76,20 +78,24 @@ public class HowToUseTest {
 
     // @Test
     public void with_intermediate_points_the_answer_should_be_ok() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoint(AddressesHelper.SAO_JOSE).to(AddressesHelper.ARARANGUA).go();
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoint(AddressesHelper.SAO_JOSE)
+                .to(AddressesHelper.ARARANGUA).go();
         Assert.assertTrue(response.getStatus().equals(Status.OK));
     }
 
     // @Test
     public void with_more_than_8_points_the_answer_should_be_error() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoint(AddressesHelper.SAO_JOSE).waypoint(AddressesHelper.PALHOCA).waypoint(AddressesHelper.PAULO_LOPES).waypoint(AddressesHelper.GAROPABA)
-                .waypoint(AddressesHelper.IMBITUBA).waypoint(AddressesHelper.LAGUNA).waypoint(AddressesHelper.TUBARAO).waypoint(AddressesHelper.ICARA).waypoint(AddressesHelper.CRICIUMA).to(AddressesHelper.ARARANGUA).go();
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoint(AddressesHelper.SAO_JOSE)
+                .waypoint(AddressesHelper.PALHOCA).waypoint(AddressesHelper.PAULO_LOPES).waypoint(AddressesHelper.GAROPABA)
+                .waypoint(AddressesHelper.IMBITUBA).waypoint(AddressesHelper.LAGUNA).waypoint(AddressesHelper.TUBARAO)
+                .waypoint(AddressesHelper.ICARA).waypoint(AddressesHelper.CRICIUMA).to(AddressesHelper.ARARANGUA).go();
         Assert.assertTrue(response.getStatus().equals(Status.MAX_WAYPOINTS_EXCEEDED));
     }
 
     // @Test
     public void with_alternatives_and_without_alternatives() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).withAlternativesRoutes().go();
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL)
+                .withAlternativesRoutes().go();
         Assert.assertEquals(3, response.getRoutes().size());
 
         response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
@@ -103,7 +109,15 @@ public class HowToUseTest {
         waypoints.add(AddressesHelper.SAO_JOSE);
         waypoints.add(AddressesHelper.PALHOCA);
 
-        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoints(waypoints).to(AddressesHelper.ARARANGUA).go();
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoints(waypoints)
+                .to(AddressesHelper.ARARANGUA).go();
+        Assert.assertTrue(response.getStatus().equals(Status.OK));
+    }
+
+    // @Test
+    public void with_client_id() throws GoogleDirectionsException {
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).withClientId(ProxyHelper.GOOGLE_CLIENT_ID)
+                .to(AddressesHelper.ARARANGUA).go();
         Assert.assertTrue(response.getStatus().equals(Status.OK));
     }
 
