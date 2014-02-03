@@ -90,3 +90,7 @@ public void example() {
 **Twitter**: @ricardolonga  
 **E-mail**: [ricardo.longa@gmail.com](mailto://ricardo.longa@gmail.com)  
 **Site**: [www.ricardolonga.com.br](http://www.ricardolonga.com.br "Site")  
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ricardolonga/google-maps-directions/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
