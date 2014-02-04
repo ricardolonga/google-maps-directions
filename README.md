@@ -3,6 +3,8 @@
 Uma biblioteca open-source para a [**Google Directions API**](https://developers.google.com/maps/documentation/directions/).
 
 [![Build Status](https://travis-ci.org/ricardolonga/google-maps-directions.png?branch=master)](https://travis-ci.org/ricardolonga/google-maps-directions)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ricardolonga/google-maps-directions/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 
 ## Requisitos  
 
@@ -90,7 +92,3 @@ public void example() {
 **Twitter**: @ricardolonga  
 **E-mail**: [ricardo.longa@gmail.com](mailto://ricardo.longa@gmail.com)  
 **Site**: [www.ricardolonga.com.br](http://www.ricardolonga.com.br "Site")  
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ricardolonga/google-maps-directions/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
