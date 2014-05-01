@@ -1,7 +1,5 @@
 package br.com.ricardolonga.googledirections.tests;
 
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,6 @@ import org.junit.runner.RunWith;
 
 import br.com.ricardolonga.googledirections.helpers.AddressesHelper;
 import br.com.ricardolonga.googledirections.helpers.PremierClientHelper;
-import br.com.ricardolonga.googledirections.helpers.ProxyHelper;
 import br.com.ricardolonga.googlemapsdirections.business.DirectionsSearch;
 import br.com.ricardolonga.googlemapsdirections.exception.GoogleDirectionsException;
 import br.com.ricardolonga.googlemapsdirections.jsonmapping.DirectionsResponse;
@@ -33,9 +30,11 @@ public class HowToUseTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
+        // @formatter:off
         return ShrinkWrap.create(JavaArchive.class)
                          .addPackages(true, "br.com.ricardolonga.googlemapsdirections")
                          .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        // @formatter:on
     }
 
     @Inject
@@ -43,25 +42,21 @@ public class HowToUseTest {
 
     @Before
     public void init() {
-        Authenticator authenticator = new Authenticator() {
-            @Override
-            public PasswordAuthentication getPasswordAuthentication() {
-                return (new PasswordAuthentication(ProxyHelper.USER, ProxyHelper.PASS.toCharArray()));
-            }
-        };
-        Authenticator.setDefault(authenticator);
-
-        System.setProperty("http.proxyHost", ProxyHelper.PROXY_HOST);
-        System.setProperty("http.proxyPort", ProxyHelper.PROXY_PORT);
+        // Authenticator authenticator = new Authenticator() {
+        // @Override
+        // public PasswordAuthentication getPasswordAuthentication() {
+        // return (new PasswordAuthentication(ProxyHelper.USER, ProxyHelper.PASS.toCharArray()));
+        // }
+        // };
+        // Authenticator.setDefault(authenticator);
+        //
+        // System.setProperty("http.proxyHost", ProxyHelper.PROXY_HOST);
+        // System.setProperty("http.proxyPort", ProxyHelper.PROXY_PORT);
     }
 
     @Test
     public void the_answer_should_be_ok() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create()
-                                                      .from(AddressesHelper.FLORIANOPOLIS)
-                                                      .to(AddressesHelper.ARARANGUA)
-                                                      .go();
-
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.ARARANGUA).go();
         Assert.assertTrue(response.getStatus().equals(Status.OK));
     }
 
@@ -77,49 +72,42 @@ public class HowToUseTest {
 
     @Test
     public void with_intermediate_points_the_answer_should_be_ok() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create()
-                                                      .from(AddressesHelper.FLORIANOPOLIS)
-                                                      .waypoint(AddressesHelper.SAO_JOSE)
-                                                      .to(AddressesHelper.ARARANGUA)
-                                                      .go();
-        
+        // @formatter:off
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS)
+                                                               .waypoint(AddressesHelper.SAO_JOSE)
+                                                               .to(AddressesHelper.ARARANGUA).go();
+        // @formatter:on
+
         Assert.assertTrue(response.getStatus().equals(Status.OK));
     }
 
     @Test
     public void with_more_than_8_points_the_answer_should_be_error() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create()
-                                                      .from(AddressesHelper.FLORIANOPOLIS)
-                                                      .waypoint(AddressesHelper.SAO_JOSE)
-                                                      .waypoint(AddressesHelper.PALHOCA)
-                                                      .waypoint(AddressesHelper.PAULO_LOPES)
-                                                      .waypoint(AddressesHelper.GAROPABA)
-                                                      .waypoint(AddressesHelper.IMBITUBA)
-                                                      .waypoint(AddressesHelper.LAGUNA)
-                                                      .waypoint(AddressesHelper.TUBARAO)
-                                                      .waypoint(AddressesHelper.ICARA)
-                                                      .waypoint(AddressesHelper.CRICIUMA)
-                                                      .to(AddressesHelper.ARARANGUA)
-                                                      .go();
-        
+        // @formatter:off
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS)
+                                                               .waypoint(AddressesHelper.SAO_JOSE)
+                                                               .waypoint(AddressesHelper.PALHOCA)
+                                                               .waypoint(AddressesHelper.PAULO_LOPES)
+                                                               .waypoint(AddressesHelper.GAROPABA)
+                                                               .waypoint(AddressesHelper.IMBITUBA)
+                                                               .waypoint(AddressesHelper.LAGUNA)
+                                                               .waypoint(AddressesHelper.TUBARAO)
+                                                               .waypoint(AddressesHelper.ICARA)
+                                                               .waypoint(AddressesHelper.CRICIUMA)
+                                                               .to(AddressesHelper.ARARANGUA).go();
+        // @formatter:on
+
         Assert.assertTrue(response.getStatus().equals(Status.MAX_WAYPOINTS_EXCEEDED));
     }
 
     @Test
     public void with_alternatives_and_without_alternatives() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create()
-                                                      .from(AddressesHelper.FLORIANOPOLIS)
-                                                      .to(AddressesHelper.CAXIAS_DO_SUL)
-                                                      .withAlternativesRoutes()
-                                                      .go();
-        
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).withAlternativesRoutes().go();
+
         Assert.assertEquals(3, response.getRoutes().size());
 
-        response = directionsSearch.create()
-                                   .from(AddressesHelper.FLORIANOPOLIS)
-                                   .to(AddressesHelper.CAXIAS_DO_SUL)
-                                   .go();
-        
+        response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).to(AddressesHelper.CAXIAS_DO_SUL).go();
+
         Assert.assertEquals(1, response.getRoutes().size());
     }
 
@@ -130,12 +118,8 @@ public class HowToUseTest {
         waypoints.add(AddressesHelper.SAO_JOSE);
         waypoints.add(AddressesHelper.PALHOCA);
 
-        DirectionsResponse response = directionsSearch.create()
-                                                      .from(AddressesHelper.FLORIANOPOLIS)
-                                                      .waypoints(waypoints)
-                                                      .to(AddressesHelper.ARARANGUA)
-                                                      .go();
-        
+        DirectionsResponse response = directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS).waypoints(waypoints).to(AddressesHelper.ARARANGUA).go();
+
         Assert.assertTrue(response.getStatus().equals(Status.OK));
     }
 
@@ -146,10 +130,10 @@ public class HowToUseTest {
      */
     @Test(expected = GoogleDirectionsException.class)
     public void as_premier_client() throws GoogleDirectionsException {
-        DirectionsResponse response = directionsSearch.create()
-                                                      .from(AddressesHelper.FLORIANOPOLIS)
-                                                      .asPremierClient(PremierClientHelper.CLIENT_ID, PremierClientHelper.CRYPTOGRAPHIC_KEY)
-                                                      .to(AddressesHelper.ARARANGUA)
-                                                      .go();
+        // @formatter:off
+        directionsSearch.create().from(AddressesHelper.FLORIANOPOLIS)
+                                 .asPremierClient(PremierClientHelper.CLIENT_ID, PremierClientHelper.CRYPTOGRAPHIC_KEY)
+                                 .to(AddressesHelper.ARARANGUA).go();
+        // @formatter:on
     }
 }

@@ -1,14 +1,12 @@
 package br.com.ricardolonga.googlemapsdirections.business;
 
-import java.io.IOException;
 import java.net.Authenticator;
-import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.io.IOUtils;
+import javax.inject.Inject;
 
 import br.com.ricardolonga.googlemapsdirections.exception.GoogleDirectionsException;
 import br.com.ricardolonga.googlemapsdirections.jsonmapping.DirectionsResponse;
@@ -19,6 +17,9 @@ import com.google.gson.Gson;
  * @author Ricardo Longa
  */
 public class DirectionsSearch {
+
+    @Inject
+    private RequestExecutor requestExecutor;
 
     private URLBuilder urlBuilder;
 
@@ -130,26 +131,12 @@ public class DirectionsSearch {
     public DirectionsResponse go() throws GoogleDirectionsException {
         URL url = urlBuilder.build();
 
-        String content = request(url);
+        String content = requestExecutor.execute(url);
 
         DirectionsResponse response = new Gson().fromJson(content, DirectionsResponse.class);
         response.setUrl(url.toString());
 
         return response;
-    }
-
-    private String request(URL url) throws GoogleDirectionsException {
-        String content = "";
-
-        try {
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            content = IOUtils.toString(con.getInputStream(), URLBuilder.UTF_8);
-            con.disconnect();
-        } catch (IOException e) {
-            throw new GoogleDirectionsException(e);
-        }
-
-        return content;
     }
 
 }
